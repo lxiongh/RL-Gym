@@ -6,6 +6,7 @@
 
 ## Gym Games
 
-## [FlappyBird-v0](FlappyBird-v0/README.MD)
+### [FlappyBird-v0](FlappyBird-v0/README.MD)
 
 ![](./FlappyBird-v0/dqn_agent.gif)
+
