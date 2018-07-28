@@ -1,5 +1,8 @@
 # Byte-compiled / optimized / DLL files
-*.mp4
+*video*.mp4
+demo/results
+*play*/
+#*.mp4
 pngs/
 *.json
 *.pyc
