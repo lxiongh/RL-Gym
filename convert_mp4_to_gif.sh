@@ -1,7 +1,7 @@
 #!/bin/bash
 palette="/tmp/palette.png"
 
-filters="fps=5,scale=-1:-1:flags=lanczos"
+filters="fps=10,scale=-1:-1:flags=lanczos"
 
 ffmpeg -v warning -i $1 -vf "$filters,palettegen=stats_mode=diff" -y $palette
 
