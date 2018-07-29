@@ -24,3 +24,10 @@ DQN 算法迭代学习过程.
 ### LunarLander-v2
 
 ![](./LunarLander-v2/dqn_agent.gif)
+
+
+### Pendulum-v0
+
+DDPG 算法实现连续动作空间的学习
+
+![](./Pendulum-v0/ddpg_agent.gif)

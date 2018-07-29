@@ -50,9 +50,8 @@ MemoryBuffer = namedtuple(
 
 
 class DDPGAgent(object):
-    def __init__(self, state_num, action_num, \
-        action_range=(-1.,1.), buffer_size=2000, batch_size=64, gamma=0.99, \
-        device=torch.device('cpu'), hidden_unit=16):
+    def __init__(self, state_num, action_num, buffer_size=2000, batch_size=64, gamma=0.99, \
+        device=torch.device('cpu'), hidden_unit=16, lr=1e-3):
 
         self.device = device
 
@@ -67,9 +66,9 @@ class DDPGAgent(object):
 
         # add optimize
         self.actor_optimizer = torch.optim.Adam(
-            self.actor.parameters(), lr=1e-3)
+            self.actor.parameters(), lr=lr)
         self.critic_optimizer = torch.optim.Adam(
-            self.critic.parameters(), lr=1e-3)
+            self.critic.parameters(), lr=lr)
 
         # add other params
         self.buffer_size = buffer_size
@@ -77,7 +76,7 @@ class DDPGAgent(object):
         self.gamma = gamma
         self.memory_buffer = deque(maxlen=buffer_size)
         self.noise = utils.OrnsteinUhlenbeckActionNoise(action_num)
-        self.action_range = action_range
+#         self.action_range = action_range
         self.critic_loss_F = nn.MSELoss()
 
 
@@ -91,7 +90,7 @@ class DDPGAgent(object):
         state = torch.FloatTensor(state).to(self.device)
         action = self.actor.forward(state).detach()
         new_action = action.cpu().data.numpy() + self.noise.sample()
-        return np.clip(new_action, self.action_range[0], self.action_range[1])
+        return np.clip(new_action, -1, 1)
 
     def _add(self, state, action, reward, next_state, done):
         """Add a new experience to memory."""
@@ -152,7 +151,7 @@ class DDPGAgent(object):
         utils.hard_update(self.target_critic, self.critic)
         utils.hard_update(self.target_actor, self.actor)
 
-    def play_action(self, state):
+    def choose_opt_action(self, state):
         state = torch.FloatTensor(state).to(device)
         action = self.actor.forward(state).detach()
         return np.clip(action.cpu().data.numpy(), -self.action_limit, self.action_limit)
