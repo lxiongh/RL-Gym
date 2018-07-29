@@ -14,11 +14,8 @@
 ![](./FlappyBird-v0/dqn_agent.gif)
 
 
+### CartPole-v1
 
-<video id="pelican-installation" class="video-js vjs-default-skin" controls
-preload="auto" width="683" height="384" poster="FlappyBird-v0/training_rewards.png"
-data-setup="{}">
-<source src="CartPole-v1/carpole_training.mp4" type='video/mp4'>
-</video>
+DQN 算法迭代学习过程.
 
-<script src="http://vjs.zencdn.net/4.0/video.js"></script>
+![](./CartPole-v1/dqn_agent.gif)
